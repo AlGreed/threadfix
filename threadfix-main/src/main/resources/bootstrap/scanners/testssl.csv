@@ -1,0 +1,12 @@
+01/07/2016 00:00:00
+type.info,,
+TestSSL,https://github.com/drwetter/testssl.sh,0.1,
+type.vulnerabilities,,,
+type.severities,,,
+OK,OK,1,1
+Information,INFO,1,1
+Attention,NOT ok,2,2
+Low,Low,3,3
+Warning,WARN,3,3
+Medium,MEDIUM,4,4
+High,High,5,5

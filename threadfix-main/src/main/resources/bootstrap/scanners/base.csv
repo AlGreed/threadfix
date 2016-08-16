@@ -22,3 +22,4 @@ WebInspect|https://www.fortify.com/products/web_inspect.html|9.00|The WebInspect
 Veracode|http://www.veracode.com/|-|You shouldn't be seeing this.
 Dependency Check|https://github.com/jeremylong/DependencyCheck|1.02|You shouldn't be seeing this.
 Brakeman|http://brakemanscanner.org/|1.5.2|The Brakeman importer requires the Brakeman JSON output. To get this format, either specify a file with a JSON extension for output (-o example.json) or use the -f option to set it explicitly (-f json).
+TestSSL|https://github.com/drwetter/testssl.sh|0.1|The TestSSL importer requires a JSON-Object.

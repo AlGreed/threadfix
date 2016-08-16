@@ -60,6 +60,7 @@ public enum ScannerType {
     SENTINEL("whitehat", "WhiteHat Sentinel", "WhiteHat Sentinel", SENTINEL_DB_NAME, "https://source.whitehatsec.com/site_vuln_detail.html"),
     SENTINEL_SOURCE("whitehatsource", "WhiteHat Sentinel Source", "WhiteHat Sentinel Source", SENTINEL_DB_NAME, "https://source.whitehatsec.com/application_findings_detail.html"),
     SSVL("ssvl", "SSVL", "SSVL", SSVL_DB_NAME),
+    TESTSSL("testssl", "TestSSL", "TestSSL", TESTSSL_DB_NAME),
     VERACODE("veracode", "Veracode", "Veracode", VERACODE_DB_NAME),
     MANUAL("manual", "Manual", "Manual", MANUAL_DB_NAME),
     CONTRAST("contrast", "Contrast", "Contrast", CONTRAST_DB_NAME),

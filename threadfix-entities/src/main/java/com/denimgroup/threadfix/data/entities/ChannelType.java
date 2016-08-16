@@ -60,7 +60,8 @@ public class ChannelType extends BaseEntity {
 			ScannerType.WEBINSPECT.getDisplayName(),
 			ScannerType.ZAPROXY.getDisplayName(),
 			ScannerType.QUALYSGUARD_WAS.getDisplayName(),
-			ScannerType.APPSCAN_DYNAMIC.getDisplayName());
+			ScannerType.APPSCAN_DYNAMIC.getDisplayName(),
+			ScannerType.TESTSSL.getDisplayName());
 	
 	public static final Set<String> STATIC_TYPES = set(
 			ScannerType.APPSCAN_SOURCE.getDisplayName(),

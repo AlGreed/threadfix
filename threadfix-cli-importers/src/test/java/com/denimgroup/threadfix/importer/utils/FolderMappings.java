@@ -62,6 +62,7 @@ public class FolderMappings {
         addToMap(ScannerType.CLANG, "Static/Clang");
 	    addToMap(ScannerType.CPPCHECK, "Static/Cppcheck");
         addToMap(ScannerType.SSVL, "Manual/SSVL");
+        addToMap(ScannerType.TESTSSL, "Dynamic/TestSSL");
     }
 
     private static void addToMap(ScannerType type, String fileKey) {
