@@ -79,9 +79,7 @@ public class TestSSLChannelImporter extends AbstractChannelImporter {
         calendar.setTime(new Date(Long.valueOf(report.getStartTime())));
         scan.setImportTime(calendar);
 
-        log.info(report.getResults().size() + " possible issues were scanned.");
-
-        for (final TestSSLScan testSSLScan : report.getResults()) {
+        for (final TestSSLScan testSSLScan : report.getSections().getAllScans()) {
             if (!testSSLScan.getSeverity().equals("OK")) {
                 final String type = testSSLScan.toString();
                 final String path = report.getHost() + ":" + report.getPort();

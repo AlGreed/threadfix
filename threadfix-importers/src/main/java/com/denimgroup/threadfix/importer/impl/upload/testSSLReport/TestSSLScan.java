@@ -7,35 +7,34 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 /**
  * @author alGreed
  */
-@JsonPropertyOrder({"id", "ip", "severity", "finding"})
 public class TestSSLScan {
 
-    @JsonProperty(value = "id")
+    @JsonProperty(value = "id", required = true)
     private final String id;
 
-    @JsonProperty(value = "ip")
-    private final String ip;
-
-    @JsonProperty(value = "severity")
+    @JsonProperty(value = "severity", required = true)
     private final String severity;
 
-    @JsonProperty(value = "finding")
+    @JsonProperty(value = "finding", required = true)
     private final String finding;
 
+    @JsonProperty(value = "cve")
+    private final String cve;
+
+    @JsonProperty(value = "cwe")
+    private final String cwe;
+
     @JsonCreator
-    public TestSSLScan(@JsonProperty(value = "id") final String id, @JsonProperty(value = "ip") final String ip, @JsonProperty(value = "severity") final String severity, @JsonProperty(value = "finding") final String finding) {
+    public TestSSLScan(@JsonProperty(value = "id") final String id, @JsonProperty(value = "ip") final String ip, @JsonProperty(value = "severity") final String severity, @JsonProperty(value = "finding") final String finding, @JsonProperty(value = "cve") final String cve, @JsonProperty(value = "cwe") final String cwe) {
         this.id = id;
-        this.ip = ip;
         this.severity = severity;
         this.finding = finding;
+        this.cve = cve;
+        this.cwe = cwe;
     }
 
     public String getId() {
         return id;
-    }
-
-    public String getIp() {
-        return ip;
     }
 
     public String getSeverity() {
@@ -46,6 +45,14 @@ public class TestSSLScan {
         return finding;
     }
 
+    public String getCve() {
+        return cve;
+    }
+
+    public String getCwe() {
+        return cwe;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -54,17 +61,20 @@ public class TestSSLScan {
         final TestSSLScan that = (TestSSLScan) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (ip != null ? !ip.equals(that.ip) : that.ip != null) return false;
         if (severity != null ? !severity.equals(that.severity) : that.severity != null) return false;
-        return finding != null ? finding.equals(that.finding) : that.finding == null;
+        if (finding != null ? !finding.equals(that.finding) : that.finding != null) return false;
+        if (cve != null ? !cve.equals(that.cve) : that.cve != null) return false;
+        return cwe != null ? cwe.equals(that.cwe) : that.cwe == null;
+
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (ip != null ? ip.hashCode() : 0);
         result = 31 * result + (severity != null ? severity.hashCode() : 0);
         result = 31 * result + (finding != null ? finding.hashCode() : 0);
+        result = 31 * result + (cve != null ? cve.hashCode() : 0);
+        result = 31 * result + (cwe != null ? cwe.hashCode() : 0);
         return result;
     }
 
@@ -72,9 +82,10 @@ public class TestSSLScan {
     public String toString() {
         return "TestSSLScan{" +
                 "id='" + id + '\'' +
-                ", ip='" + ip + '\'' +
                 ", severity='" + severity + '\'' +
                 ", finding='" + finding + '\'' +
+                ", cve='" + cve + '\'' +
+                ", cwe='" + cwe + '\'' +
                 '}';
     }
 }
