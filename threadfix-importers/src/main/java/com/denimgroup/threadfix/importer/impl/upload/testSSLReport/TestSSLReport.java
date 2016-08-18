@@ -1,10 +1,7 @@
 package com.denimgroup.threadfix.importer.impl.upload.testSSLReport;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author alGreed
@@ -26,20 +23,20 @@ public class TestSSLReport {
     @JsonProperty(value = "startTime", required = true)
     private final String startTime;
 
-    @JsonProperty(value = "endTime", required = true)
-    private final String endTime;
+    @JsonProperty(value = "scanTime", required = true)
+    private final String scanTime;
 
-    @JsonProperty(value = "sections", required = true)
+    @JsonProperty(value = "scanResult", required = true)
     private final TestSSLSections sections;
 
     @JsonCreator
-    public TestSSLReport(@JsonProperty(value = "host") final String host, @JsonProperty(value = "port") final String port, @JsonProperty(value = "ip") final String ip, final String version, @JsonProperty(value = "startTime") final String startTime, final String endTime, @JsonProperty(value = "sections") final TestSSLSections sections) {
+    public TestSSLReport(@JsonProperty(value = "host") final String host, @JsonProperty(value = "port") final String port, @JsonProperty(value = "ip") final String ip, @JsonProperty(value = "version") final String version, @JsonProperty(value = "startTime") final String startTime, @JsonProperty(value = "scanTime") final String scanTime, @JsonProperty(value = "scanResult") final TestSSLSections sections) {
         this.host = host;
         this.port = port;
         this.ip = ip;
         this.version = version;
         this.startTime = startTime;
-        this.endTime = endTime;
+        this.scanTime = scanTime;
         this.sections = sections;
     }
 
@@ -63,8 +60,8 @@ public class TestSSLReport {
         return version;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public String getScanTime() {
+        return scanTime;
     }
 
     public TestSSLSections getSections() {
@@ -83,7 +80,7 @@ public class TestSSLReport {
         if (ip != null ? !ip.equals(that.ip) : that.ip != null) return false;
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
         if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
-        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (scanTime != null ? !scanTime.equals(that.scanTime) : that.scanTime != null) return false;
         return sections != null ? sections.equals(that.sections) : that.sections == null;
 
     }
@@ -95,7 +92,7 @@ public class TestSSLReport {
         result = 31 * result + (ip != null ? ip.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (scanTime != null ? scanTime.hashCode() : 0);
         result = 31 * result + (sections != null ? sections.hashCode() : 0);
         return result;
     }
@@ -108,7 +105,7 @@ public class TestSSLReport {
                 ", ip='" + ip + '\'' +
                 ", version='" + version + '\'' +
                 ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
+                ", scanTime='" + scanTime + '\'' +
                 ", sections=" + sections +
                 '}';
     }

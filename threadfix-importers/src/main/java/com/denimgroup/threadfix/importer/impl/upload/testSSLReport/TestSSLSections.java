@@ -1,5 +1,6 @@
 package com.denimgroup.threadfix.importer.impl.upload.testSSLReport;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
@@ -41,6 +42,7 @@ public class TestSSLSections {
 
     private final LinkedList<LinkedList<TestSSLScan>> allSections = new LinkedList<LinkedList<TestSSLScan>>();
 
+    @JsonCreator
     public TestSSLSections(@JsonProperty(value = "service") final LinkedList<TestSSLScan> service,
                            @JsonProperty(value = "protocols") final LinkedList<TestSSLScan> protocols,
                            @JsonProperty(value = "ciphers") final LinkedList<TestSSLScan> ciphers,
