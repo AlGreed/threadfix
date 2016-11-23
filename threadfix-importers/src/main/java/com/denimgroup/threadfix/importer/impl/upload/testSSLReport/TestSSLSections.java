@@ -77,43 +77,43 @@ public class TestSSLSections {
     }
 
     public LinkedList<TestSSLScan> getService() {
-        return service;
+        return this.service;
     }
 
     public LinkedList<TestSSLScan> getProtocols() {
-        return protocols;
+        return this.protocols;
     }
 
     public LinkedList<TestSSLScan> getCiphers() {
-        return ciphers;
+        return this.ciphers;
     }
 
     public LinkedList<TestSSLScan> getPfs() {
-        return pfs;
+        return this.pfs;
     }
 
     public LinkedList<TestSSLScan> getServerPreferences() {
-        return serverPreferences;
+        return this.serverPreferences;
     }
 
     public LinkedList<TestSSLScan> getServerDefaults() {
-        return serverDefaults;
+        return this.serverDefaults;
     }
 
     public LinkedList<TestSSLScan> getHeaderResponse() {
-        return headerResponse;
+        return this.headerResponse;
     }
 
     public LinkedList<TestSSLScan> getVulnerabilities() {
-        return vulnerabilities;
+        return this.vulnerabilities;
     }
 
     public LinkedList<TestSSLScan> getCipherTests() {
-        return cipherTests;
+        return this.cipherTests;
     }
 
     public LinkedList<TestSSLScan> getBrowserSimulations() {
-        return browserSimulations;
+        return this.browserSimulations;
     }
 
     public LinkedList<TestSSLScan> getAllScans(){
@@ -133,51 +133,51 @@ public class TestSSLSections {
 
         final TestSSLSections that = (TestSSLSections) o;
 
-        if (service != null ? !service.equals(that.service) : that.service != null) return false;
-        if (protocols != null ? !protocols.equals(that.protocols) : that.protocols != null) return false;
-        if (ciphers != null ? !ciphers.equals(that.ciphers) : that.ciphers != null) return false;
-        if (pfs != null ? !pfs.equals(that.pfs) : that.pfs != null) return false;
-        if (serverPreferences != null ? !serverPreferences.equals(that.serverPreferences) : that.serverPreferences != null)
+        if (this.service != null ? !this.service.equals(that.service) : that.service != null) return false;
+        if (this.protocols != null ? !this.protocols.equals(that.protocols) : that.protocols != null) return false;
+        if (this.ciphers != null ? !this.ciphers.equals(that.ciphers) : that.ciphers != null) return false;
+        if (this.pfs != null ? !this.pfs.equals(that.pfs) : that.pfs != null) return false;
+        if (this.serverPreferences != null ? !this.serverPreferences.equals(that.serverPreferences) : that.serverPreferences != null)
             return false;
-        if (serverDefaults != null ? !serverDefaults.equals(that.serverDefaults) : that.serverDefaults != null)
+        if (this.serverDefaults != null ? !this.serverDefaults.equals(that.serverDefaults) : that.serverDefaults != null)
             return false;
-        if (headerResponse != null ? !headerResponse.equals(that.headerResponse) : that.headerResponse != null)
+        if (this.headerResponse != null ? !this.headerResponse.equals(that.headerResponse) : that.headerResponse != null)
             return false;
-        if (vulnerabilities != null ? !vulnerabilities.equals(that.vulnerabilities) : that.vulnerabilities != null)
+        if (this.vulnerabilities != null ? !this.vulnerabilities.equals(that.vulnerabilities) : that.vulnerabilities != null)
             return false;
-        if (cipherTests != null ? !cipherTests.equals(that.cipherTests) : that.cipherTests != null) return false;
-        return browserSimulations != null ? browserSimulations.equals(that.browserSimulations) : that.browserSimulations == null;
+        if (this.cipherTests != null ? !this.cipherTests.equals(that.cipherTests) : that.cipherTests != null) return false;
+        return this.browserSimulations != null ? this.browserSimulations.equals(that.browserSimulations) : that.browserSimulations == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = service != null ? service.hashCode() : 0;
-        result = 31 * result + (protocols != null ? protocols.hashCode() : 0);
-        result = 31 * result + (ciphers != null ? ciphers.hashCode() : 0);
-        result = 31 * result + (pfs != null ? pfs.hashCode() : 0);
-        result = 31 * result + (serverPreferences != null ? serverPreferences.hashCode() : 0);
-        result = 31 * result + (serverDefaults != null ? serverDefaults.hashCode() : 0);
-        result = 31 * result + (headerResponse != null ? headerResponse.hashCode() : 0);
-        result = 31 * result + (vulnerabilities != null ? vulnerabilities.hashCode() : 0);
-        result = 31 * result + (cipherTests != null ? cipherTests.hashCode() : 0);
-        result = 31 * result + (browserSimulations != null ? browserSimulations.hashCode() : 0);
+        int result = this.service != null ? this.service.hashCode() : 0;
+        result = 31 * result + (this.protocols != null ? this.protocols.hashCode() : 0);
+        result = 31 * result + (this.ciphers != null ? this.ciphers.hashCode() : 0);
+        result = 31 * result + (this.pfs != null ? this.pfs.hashCode() : 0);
+        result = 31 * result + (this.serverPreferences != null ? this.serverPreferences.hashCode() : 0);
+        result = 31 * result + (this.serverDefaults != null ? this.serverDefaults.hashCode() : 0);
+        result = 31 * result + (this.headerResponse != null ? this.headerResponse.hashCode() : 0);
+        result = 31 * result + (this.vulnerabilities != null ? this.vulnerabilities.hashCode() : 0);
+        result = 31 * result + (this.cipherTests != null ? this.cipherTests.hashCode() : 0);
+        result = 31 * result + (this.browserSimulations != null ? this.browserSimulations.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "TestSSLSections{" +
-                "service=" + service +
-                ", protocols=" + protocols +
-                ", ciphers=" + ciphers +
-                ", pfs=" + pfs +
-                ", serverPreferences=" + serverPreferences +
-                ", serverDefaults=" + serverDefaults +
-                ", headerResponse=" + headerResponse +
-                ", vulnerabilities=" + vulnerabilities +
-                ", cipherTests=" + cipherTests +
-                ", browserSimulations=" + browserSimulations +
+                "service=" + this.service +
+                ", protocols=" + this.protocols +
+                ", ciphers=" + this.ciphers +
+                ", pfs=" + this.pfs +
+                ", serverPreferences=" + this.serverPreferences +
+                ", serverDefaults=" + this.serverDefaults +
+                ", headerResponse=" + this.headerResponse +
+                ", vulnerabilities=" + this.vulnerabilities +
+                ", cipherTests=" + this.cipherTests +
+                ", browserSimulations=" + this.browserSimulations +
                 '}';
     }
 }

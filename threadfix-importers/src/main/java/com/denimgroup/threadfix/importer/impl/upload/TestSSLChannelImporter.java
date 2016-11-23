@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.denimgroup.threadfix.importer.impl.upload.testSSLReport.TestSSLSeverity;
 import org.apache.commons.io.IOUtils;
 
 import com.denimgroup.threadfix.annotations.ScanFormat;
@@ -85,12 +86,22 @@ public class TestSSLChannelImporter extends AbstractChannelImporter {
                 final String path = report.getHost() + ":" + report.getPort();
 
                 log.info("Creating a finding for " + testSSLScan);
-                findingMap.put(FindingKey.PATH, path);
-                findingMap.put(FindingKey.VULN_CODE, testSSLScan.getId());
-                findingMap.put(FindingKey.SEVERITY_CODE, testSSLScan.getSeverity());
-                findingMap.put(FindingKey.DETAIL, testSSLScan.getFinding());
-                findingMap.put(FindingKey.NATIVE_ID, hashFindingInfo(type, path, null));
-                findingMap.put(FindingKey.CWE, "934");
+                if (TestSSLSeverity.isVulnerable(testSSLScan)) {
+                    findingMap.put(FindingKey.PATH, path);
+                    findingMap.put(FindingKey.VULN_CODE, testSSLScan.getId());
+                    findingMap.put(FindingKey.SEVERITY_CODE, testSSLScan.getSeverity());
+                    findingMap.put(FindingKey.DETAIL, testSSLScan.getFinding());
+                    findingMap.put(FindingKey.NATIVE_ID, hashFindingInfo(type, path, null));
+                    findingMap.put(FindingKey.CVE, testSSLScan.getCve());
+                    if (testSSLScan.getCwe().isEmpty()) {
+                        findingMap.put(FindingKey.CWE, "310");  //CWE-310: Cryptographic Issues
+                    } else {
+                        findingMap.put(FindingKey.CWE, testSSLScan.getCwe().replaceAll("\\D+",""));
+                    }
+                    findingMap.put(FindingKey.RECOMMENDATION, testSSLScan.getHint());
+                } else {
+                    log.info("Ignoring informational finding: " + testSSLScan);
+                }
 
                 final Finding finding = constructFinding(findingMap);
                 if (finding != null) {

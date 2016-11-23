@@ -2,7 +2,6 @@ package com.denimgroup.threadfix.importer.impl.upload.testSSLReport;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author alGreed
@@ -24,33 +23,41 @@ public class TestSSLScan {
     @JsonProperty(value = "cwe")
     private final String cwe;
 
+    @JsonProperty(value = "hint")
+    private final String hint;
+
     @JsonCreator
-    public TestSSLScan(@JsonProperty(value = "id") final String id, @JsonProperty(value = "ip") final String ip, @JsonProperty(value = "severity") final String severity, @JsonProperty(value = "finding") final String finding, @JsonProperty(value = "cve") final String cve, @JsonProperty(value = "cwe") final String cwe) {
+    public TestSSLScan(@JsonProperty(value = "id") final String id, @JsonProperty(value = "ip") final String ip, @JsonProperty(value = "severity") final String severity, @JsonProperty(value = "finding") final String finding, @JsonProperty(value = "cve") final String cve, @JsonProperty(value = "cwe") final String cwe, @JsonProperty(value = "hint") final String hint) {
         this.id = id;
         this.severity = severity;
         this.finding = finding;
         this.cve = cve;
         this.cwe = cwe;
+        this.hint = hint;
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getSeverity() {
-        return severity;
+        return this.severity;
     }
 
     public String getFinding() {
-        return finding;
+        return this.finding;
     }
 
     public String getCve() {
-        return cve;
+        return this.cve;
     }
 
     public String getCwe() {
-        return cwe;
+        return this.cwe;
+    }
+
+    public String getHint() {
+        return this.hint;
     }
 
     @Override
@@ -60,32 +67,35 @@ public class TestSSLScan {
 
         final TestSSLScan that = (TestSSLScan) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (severity != null ? !severity.equals(that.severity) : that.severity != null) return false;
-        if (finding != null ? !finding.equals(that.finding) : that.finding != null) return false;
-        if (cve != null ? !cve.equals(that.cve) : that.cve != null) return false;
-        return cwe != null ? cwe.equals(that.cwe) : that.cwe == null;
+        if (this.id != null ? !this.id.equals(that.id) : that.id != null) return false;
+        if (this.severity != null ? !this.severity.equals(that.severity) : that.severity != null) return false;
+        if (this.finding != null ? !this.finding.equals(that.finding) : that.finding != null) return false;
+        if (this.cve != null ? !this.cve.equals(that.cve) : that.cve != null) return false;
+        if (this.hint != null ? !this.hint.equals(that.hint) : that.hint != null) return false;
+        return this.cwe != null ? this.cwe.equals(that.cwe) : that.cwe == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (severity != null ? severity.hashCode() : 0);
-        result = 31 * result + (finding != null ? finding.hashCode() : 0);
-        result = 31 * result + (cve != null ? cve.hashCode() : 0);
-        result = 31 * result + (cwe != null ? cwe.hashCode() : 0);
+        int result = this.id != null ? this.id.hashCode() : 0;
+        result = 31 * result + (this.severity != null ? this.severity.hashCode() : 0);
+        result = 31 * result + (this.finding != null ? this.finding.hashCode() : 0);
+        result = 31 * result + (this.cve != null ? this.cve.hashCode() : 0);
+        result = 31 * result + (this.cwe != null ? this.cwe.hashCode() : 0);
+        result = 31 * result + (this.hint != null ? this.hint.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "TestSSLScan{" +
-                "id='" + id + '\'' +
-                ", severity='" + severity + '\'' +
-                ", finding='" + finding + '\'' +
-                ", cve='" + cve + '\'' +
-                ", cwe='" + cwe + '\'' +
+                "id='" + this.id + '\'' +
+                ", severity='" + this.severity + '\'' +
+                ", finding='" + this.finding + '\'' +
+                ", cve='" + this.cve + '\'' +
+                ", cwe='" + this.cwe + '\'' +
+                ", hint='" + this.hint + '\'' +
                 '}';
     }
 }

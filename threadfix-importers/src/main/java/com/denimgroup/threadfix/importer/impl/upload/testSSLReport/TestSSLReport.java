@@ -8,7 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class TestSSLReport {
 
-    @JsonProperty(value = "host", required = true)
+    @JsonProperty(value = "Invocation")
+    private final String invocation;
+
+    @JsonProperty(value = "at")
+    private final String system;
+
+    @JsonProperty(value = "target host", required = true)
     private final String host;
 
     @JsonProperty(value = "port", required = true)
@@ -17,7 +23,10 @@ public class TestSSLReport {
     @JsonProperty(value = "ip", required = true)
     private final String ip;
 
-    @JsonProperty(value = "version", required = true)
+    @JsonProperty(value = "openssl")
+    private final String openssl;
+
+    @JsonProperty(value = "version")
     private final String version;
 
     @JsonProperty(value = "startTime", required = true)
@@ -30,10 +39,13 @@ public class TestSSLReport {
     private final TestSSLSections sections;
 
     @JsonCreator
-    public TestSSLReport(@JsonProperty(value = "host") final String host, @JsonProperty(value = "port") final String port, @JsonProperty(value = "ip") final String ip, @JsonProperty(value = "version") final String version, @JsonProperty(value = "startTime") final String startTime, @JsonProperty(value = "scanTime") final String scanTime, @JsonProperty(value = "scanResult") final TestSSLSections sections) {
+    public TestSSLReport(@JsonProperty(value = "Invocation") final String invocation, @JsonProperty(value = "at") final String system, @JsonProperty(value = "target host") final String host, @JsonProperty(value = "port") final String port, @JsonProperty(value = "ip") final String ip, @JsonProperty(value = "openssl") final String openssl, @JsonProperty(value = "version") final String version, @JsonProperty(value = "startTime") final String startTime, @JsonProperty(value = "scanTime") final String scanTime, @JsonProperty(value = "scanResult") final TestSSLSections sections) {
+        this.invocation = invocation;
+        this.system = system;
         this.host = host;
         this.port = port;
         this.ip = ip;
+        this.openssl = openssl;
         this.version = version;
         this.startTime = startTime;
         this.scanTime = scanTime;
@@ -41,31 +53,43 @@ public class TestSSLReport {
     }
 
     public String getHost() {
-        return host;
+        return this.host;
     }
 
     public String getPort() {
-        return port;
+        return this.port;
     }
 
     public String getStartTime() {
-        return startTime;
+        return this.startTime;
     }
 
     public String getIp() {
-        return ip;
+        return this.ip;
     }
 
     public String getVersion() {
-        return version;
+        return this.version;
     }
 
     public String getScanTime() {
-        return scanTime;
+        return this.scanTime;
     }
 
     public TestSSLSections getSections() {
-        return sections;
+        return this.sections;
+    }
+
+    public String getOpenssl() {
+        return this.openssl;
+    }
+
+    public String getInvocation() {
+        return this.invocation;
+    }
+
+    public String getSystem() {
+        return this.system;
     }
 
     @Override
@@ -75,38 +99,47 @@ public class TestSSLReport {
 
         final TestSSLReport that = (TestSSLReport) o;
 
-        if (host != null ? !host.equals(that.host) : that.host != null) return false;
-        if (port != null ? !port.equals(that.port) : that.port != null) return false;
-        if (ip != null ? !ip.equals(that.ip) : that.ip != null) return false;
-        if (version != null ? !version.equals(that.version) : that.version != null) return false;
-        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
-        if (scanTime != null ? !scanTime.equals(that.scanTime) : that.scanTime != null) return false;
-        return sections != null ? sections.equals(that.sections) : that.sections == null;
+        if (this.host != null ? !this.host.equals(that.host) : that.host != null) return false;
+        if (this.port != null ? !this.port.equals(that.port) : that.port != null) return false;
+        if (this.ip != null ? !this.ip.equals(that.ip) : that.ip != null) return false;
+        if (this.openssl != null ? !this.openssl.equals(that.openssl) : that.openssl != null) return false;
+        if (this.version != null ? !this.version.equals(that.version) : that.version != null) return false;
+        if (this.startTime != null ? !this.startTime.equals(that.startTime) : that.startTime != null) return false;
+        if (this.scanTime != null ? !this.scanTime.equals(that.scanTime) : that.scanTime != null) return false;
+        if (this.invocation != null ? !this.invocation.equals(that.invocation) : that.invocation != null) return false;
+        if (this.system != null ? !this.system.equals(that.system) : that.system != null) return false;
+        return this.sections != null ? this.sections.equals(that.sections) : that.sections == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = host != null ? host.hashCode() : 0;
-        result = 31 * result + (port != null ? port.hashCode() : 0);
-        result = 31 * result + (ip != null ? ip.hashCode() : 0);
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (scanTime != null ? scanTime.hashCode() : 0);
-        result = 31 * result + (sections != null ? sections.hashCode() : 0);
+        int result = this.host != null ? this.host.hashCode() : 0;
+        result = 31 * result + (this.port != null ? this.port.hashCode() : 0);
+        result = 31 * result + (this.ip != null ? this.ip.hashCode() : 0);
+        result = 31 * result + (this.openssl != null ? this.openssl.hashCode() : 0);
+        result = 31 * result + (this.version != null ? this.version.hashCode() : 0);
+        result = 31 * result + (this.startTime != null ? this.startTime.hashCode() : 0);
+        result = 31 * result + (this.scanTime != null ? this.scanTime.hashCode() : 0);
+        result = 31 * result + (this.sections != null ? this.sections.hashCode() : 0);
+        result = 31 * result + (this.invocation != null ? this.invocation.hashCode() : 0);
+        result = 31 * result + (this.system != null ? this.system.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "TestSSLReport{" +
-                "host='" + host + '\'' +
-                ", port='" + port + '\'' +
-                ", ip='" + ip + '\'' +
-                ", version='" + version + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", scanTime='" + scanTime + '\'' +
-                ", sections=" + sections +
+                "host='" + this.host + '\'' +
+                ", port='" + this.port + '\'' +
+                ", ip='" + this.ip + '\'' +
+                ", openssl='" + this.openssl + '\'' +
+                ", version='" + this.version + '\'' +
+                ", startTime='" + this.startTime + '\'' +
+                ", scanTime='" + this.scanTime + '\'' +
+                ", invocation='" + this.invocation + '\'' +
+                ", system='" + this.system + '\'' +
+                ", sections=" + this.sections +
                 '}';
     }
 }
