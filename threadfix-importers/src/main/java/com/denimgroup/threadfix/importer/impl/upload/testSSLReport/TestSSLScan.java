@@ -31,9 +31,9 @@ public class TestSSLScan {
         this.id = id;
         this.severity = severity;
         this.finding = finding;
-        this.cve = cve;
-        this.cwe = cwe;
-        this.hint = hint;
+        if (cve == null) { this.cve = ""; } else { this.cve = cve;}
+        if (cwe == null) { this.cwe = ""; } else { this.cwe = cwe;}
+        if (hint == null) { this.hint = ""; } else { this.hint = hint;}
     }
 
     public String getId() {

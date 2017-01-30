@@ -6,9 +6,7 @@ package com.denimgroup.threadfix.importer.impl.upload;
 
 import static com.denimgroup.threadfix.CollectionUtils.map;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,7 +16,6 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.denimgroup.threadfix.importer.impl.upload.testSSLReport.TestSSLSeverity;
 import org.apache.commons.io.IOUtils;
 
 import com.denimgroup.threadfix.annotations.ScanFormat;
@@ -32,6 +29,7 @@ import com.denimgroup.threadfix.data.entities.ScannerType;
 import com.denimgroup.threadfix.importer.impl.AbstractChannelImporter;
 import com.denimgroup.threadfix.importer.impl.upload.testSSLReport.TestSSLReport;
 import com.denimgroup.threadfix.importer.impl.upload.testSSLReport.TestSSLScan;
+import com.denimgroup.threadfix.importer.impl.upload.testSSLReport.TestSSLSeverity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -47,7 +45,7 @@ public class TestSSLChannelImporter extends AbstractChannelImporter {
     @Nullable
     @Override
     public Scan parseInput() {
-        log.debug("Starting JSON-Object parsing.");
+        log.debug("Received a TestSSL report");
 
         if (inputStream == null) {
             throw new IllegalStateException("InputStream was null. A JSON-Object was expected.");
@@ -55,15 +53,19 @@ public class TestSSLChannelImporter extends AbstractChannelImporter {
 
         StringReader sr;
         try {
-            final BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             sr = new StringReader(IOUtils.toString(inputStream, "UTF-8").replaceAll("\u001B\\[[;\\d]*m", ""));
         } catch (final IOException e) {
             log.error("UnsupportedEncodingException.", e);
             return null;
         }
 
+        String repoType = applicationChannel.getApplication().getRepositoryType();
+        if (repoType == null) {
+            applicationChannel.getApplication().setRepositoryType("NO_REPOSITORY");
+        }
+
         final Map<FindingKey, String> findingMap = map();
-        Scan scan = createScanWithFileNames();
+        final Scan scan = createScanWithFileNames();
         scan.setFindings(new ArrayList<Finding>());
         scan.setApplicationChannel(applicationChannel);
 
@@ -71,36 +73,33 @@ public class TestSSLChannelImporter extends AbstractChannelImporter {
         final TestSSLReport report;
         try {
             report = objectMapper.readValue(sr, TestSSLReport.class);
+            log.info("The report is parsed: " + report.toString());
         } catch (final IOException e) {
             log.error("JSONException has raised by trying to read a JSON Object.", e);
             return null;
         }
 
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(Long.valueOf(report.getStartTime())));
+        calendar.setTime(new Date(Long.valueOf(report.getStartTime()) * 1000));
         scan.setImportTime(calendar);
+        log.debug("Scan time is " + calendar.getTime());
 
         for (final TestSSLScan testSSLScan : report.getSections().getAllScans()) {
-            if (!testSSLScan.getSeverity().equals("OK")) {
-                final String type = testSSLScan.toString();
+            if (TestSSLSeverity.isVulnerable(testSSLScan)) {
+                log.info("Creating a finding for " + testSSLScan);
                 final String path = report.getHost() + ":" + report.getPort();
 
-                log.info("Creating a finding for " + testSSLScan);
-                if (TestSSLSeverity.isVulnerable(testSSLScan)) {
-                    findingMap.put(FindingKey.PATH, path);
-                    findingMap.put(FindingKey.VULN_CODE, testSSLScan.getId());
-                    findingMap.put(FindingKey.SEVERITY_CODE, testSSLScan.getSeverity());
-                    findingMap.put(FindingKey.DETAIL, testSSLScan.getFinding());
-                    findingMap.put(FindingKey.NATIVE_ID, hashFindingInfo(type, path, null));
-                    findingMap.put(FindingKey.CVE, testSSLScan.getCve());
-                    if (testSSLScan.getCwe().isEmpty()) {
-                        findingMap.put(FindingKey.CWE, "310");  //CWE-310: Cryptographic Issues
-                    } else {
-                        findingMap.put(FindingKey.CWE, testSSLScan.getCwe().replaceAll("\\D+",""));
-                    }
-                    findingMap.put(FindingKey.RECOMMENDATION, testSSLScan.getHint());
+                findingMap.put(FindingKey.PATH, path);
+                findingMap.put(FindingKey.VULN_CODE, testSSLScan.getId());
+                findingMap.put(FindingKey.SEVERITY_CODE, testSSLScan.getSeverity());
+                findingMap.put(FindingKey.DETAIL, testSSLScan.getFinding());
+                findingMap.put(FindingKey.NATIVE_ID, hashFindingInfo(testSSLScan.getId(), path, null));
+                findingMap.put(FindingKey.CVE, testSSLScan.getCve());
+                findingMap.put(FindingKey.RECOMMENDATION, testSSLScan.getHint());
+                if (testSSLScan.getCwe().isEmpty()) {
+                    findingMap.put(FindingKey.CWE, "310"); // CWE-310: Cryptographic Issues
                 } else {
-                    log.info("Ignoring informational finding: " + testSSLScan);
+                    findingMap.put(FindingKey.CWE, testSSLScan.getCwe().replaceAll("\\D+", ""));
                 }
 
                 final Finding finding = constructFinding(findingMap);
@@ -108,6 +107,8 @@ public class TestSSLChannelImporter extends AbstractChannelImporter {
                     finding.setIsStatic(false);
                     scan.getFindings().add(finding);
                 }
+            } else {
+                log.info("Ignoring informational finding: " + testSSLScan);
             }
         }
         return scan;

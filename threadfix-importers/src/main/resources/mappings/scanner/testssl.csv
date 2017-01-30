@@ -3,8 +3,8 @@ type.info,,
 TestSSL,https://github.com/drwetter/testssl.sh,0.1,
 type.vulnerabilities,,,
 type.severities,,,
-Warning,WARN,1,1
-Low,Low,2,2
-Medium,MEDIUM,3,3
-High,High,4,4
-Critical,Critical,5,5
+WARN,WARN,1,1
+LOW,LOW,2,2
+MEDIUM,MEDIUM,3,3
+HIGH,HIGH,4,4
+CRITICAL,CRITICAL,5,5

@@ -98,7 +98,8 @@ public class Scan extends BaseEntity implements Iterable<Finding> {
             ScannerType.ZAPROXY.getDisplayName(),
             ScannerType.QUALYSGUARD_WAS.getDisplayName(),
             ScannerType.APPSCAN_DYNAMIC.getDisplayName(),
-            ScannerType.CENZIC_HAILSTORM.getDisplayName());
+            ScannerType.CENZIC_HAILSTORM.getDisplayName(),
+			ScannerType.TESTSSL.getDisplayName());
 
     private static final List<String> STATIC_TYPES = list(
             ScannerType.APPSCAN_SOURCE.getDisplayName(),
